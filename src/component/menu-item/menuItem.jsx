@@ -1,8 +1,8 @@
 import { Container } from './menuItem.style'
 
-const MenuItem = ({ text, target }) => {
+const MenuItem = ({ text, onClickHandler }) => {
     return (
-        <Container href={target}>{ text }</Container>
+        <Container onClick={onClickHandler}>{ text }</Container>
     )
 }
 

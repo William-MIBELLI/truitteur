@@ -1,9 +1,13 @@
+import { Fragment } from 'react'
 import PostForm from '../../component/post-form/postForm'
-import {} from './createPost.style'
+import { Container } from './createPost.style'
 
 const CreatePost = () => {
     return (
-        <PostForm/>
+        <Container>
+            <h1>Nouveau post</h1>
+            <PostForm/>
+        </Container>
     )
 }
 

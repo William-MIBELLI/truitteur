@@ -1,13 +1,41 @@
-import { getPostSelector } from '../../store/post/post.selector'
 import {} from './posts.style'
+import {  useEffect, useState } from 'react'
+import { getPostsFromServe } from '../../utils/server/server'
+import PostCard from '../../component/post-card/postCard'
 import { useSelector } from 'react-redux'
+import { getUserTokenSelector } from '../../store/user/user.selector'
 
 const Posts = () => {
 
-    const posts = useSelector(getPostSelector)
-    console.log(posts)
+    console.log('POSTS RENDER')
+    const [ posts, setPosts ] = useState([])
+    const token = useSelector(getUserTokenSelector)
+
+
+    useEffect(() => {
+        const getData = async () => {
+            const data = await getPostsFromServe(token)
+            console.log('data : ', data)
+            if(data){
+                setPosts(data)
+            }
+        }
+        getData()
+    },[])
+
+
     return (
-        <div>JE SUIS POSTS</div>
+        <div>
+            {
+                !posts.length ? (
+                    <p>Pas de posts à afficher 😢</p>
+                ) : posts.map(post => {
+                    return (
+                        <PostCard post={post} key={post._id}/>
+                    )
+                })
+            }
+        </div>
     )
 }
 

@@ -1,4 +1,5 @@
 import Button from "../../component/button/button";
+import Spinner from "../../component/spinner/spinner";
 import { ButtonContainer, Container } from "./home.style";
 import { useNavigate } from "react-router-dom";
 
@@ -20,6 +21,7 @@ const Home = () => {
                 <Button clickHandler={() => onClickHandler('/create-post')} text={'New post'}/>
                 <Button clickHandler={() => onClickHandler('/posts')} text={'View posts'}/>
             </ButtonContainer>
+            <Spinner/>
         </Container>
     )
 }

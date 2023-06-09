@@ -1,10 +1,10 @@
 import { InputContainer } from "./input.style";
 
-const Input = ({ label, name, value, changeHandler }) => {
+const Input = ({ label, name, value, changeHandler, type }) => {
     return (
         <InputContainer>
             <label htmlFor={name}>{ label }</label>
-            <input name={name} value={value} onChange={changeHandler}/>
+            <input type={type} name={name} value={value} onChange={changeHandler}/>
         </InputContainer>
     )
 }

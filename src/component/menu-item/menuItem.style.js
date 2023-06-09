@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.a`
+export const Container = styled.p`
     text-decoration: none;
     color: white;
     margin: 0 20px;
