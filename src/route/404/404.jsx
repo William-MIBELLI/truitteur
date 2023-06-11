@@ -1,8 +1,12 @@
-import {} from './404.style'
+import Title from '../../component/title/title'
+import { Container } from './404.style'
 
 const ErrorPage = () => {
     return (
-        <div>Ups, page introuvable... 🤔</div>
+        <Container>
+            <Title text={'Mmhh ?'}/>
+            <div>Ups, page introuvable... 🤔</div>
+        </Container>
     )
 }
 

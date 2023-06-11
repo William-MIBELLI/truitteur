@@ -1,9 +1,10 @@
 import styled from 'styled-components'
+//    background: linear-gradient(45deg, ${props => props.theme.color.darkBlue}, ${props => props.theme.color.mediumPurple});
 
 export const Container = styled.div`
     width: 100vw;
     height: 80px;
-    background-color: #27374D;
+    background: linear-gradient(45deg, ${props => props.theme.color.darkBlue}, #00ADB5);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -37,6 +38,8 @@ export const LogMenu = styled.div`
 `
 export const Centered = styled.div`
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
+    height: calc(100vh - 80px);
 `

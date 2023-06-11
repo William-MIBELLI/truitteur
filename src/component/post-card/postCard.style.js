@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
 export const Card = styled.div`
-    border: 1px solid black;
-    padding: 0 30px;
+    border: 1px solid ${props => props.theme.color.darkBlue};
+    padding: 20px 30px;
     margin: 10px 0;
+    border-radius: 5px;
 `
 export const CardHeader = styled.div`
     display: flex;

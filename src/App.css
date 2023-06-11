@@ -40,3 +40,8 @@
     transform: rotate(360deg);
   }
 }
+.srv-validation-message{
+  font-size: small;
+  color: #f84d4d;
+  text-align: center;
+}

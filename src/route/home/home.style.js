@@ -5,9 +5,6 @@ export const Container = styled.div`
     margin: auto;
     text-align: center;
 
-    h1{
-        color: #27374D;
-    }
 `
 
 export const ButtonContainer = styled.div`

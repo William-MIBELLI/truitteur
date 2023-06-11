@@ -17,28 +17,37 @@ export const getPostsFromServe = async (token) => {
     }
 }
 
-export const createNewPostOnServer = async (formData) => {
+export const createNewPostOnServer = async (formData, token) => {
 
     try {
         const response = await fetch('http://localhost:8080/create-post',{
             method: 'POST',
             body: formData,
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
 
         })
 
         if(response.status !== 201){
             throw new Error('Erreur pendant la création du post')
         }
+        const data = response.json()
+        return data
     } catch (error) {
         console.log(error)
     }
 }
 
-export const getSinglePostFromServer = async (postId) => {
+export const getSinglePostFromServer = async (postId, token) => {
     try {
-        const response = await fetch(`http://localhost:8080/post/${postId}`)
+        const response = await fetch(`http://localhost:8080/post/${postId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
 
-        const data = response.json()
+        const data = await response.json()
         return data
     } catch (error) {
         console.log(error)
@@ -46,16 +55,36 @@ export const getSinglePostFromServer = async (postId) => {
     }
 }
 
-export const updatePostOnServer = async (post) => {
+export const updatePostOnServer = async (post, token) => {
 
     const id = post.get('_id')
     console.log('on est dans update : ', id)
     try {
         const response = await fetch(`http://localhost:8080/edit-post/${id}`, {
             method: 'PUT',
-            body: post
+            body: post,
+            headers : {
+                Authorization: `Bearer ${token}` 
+            }
         })
-        console.log('response : ', response.json())
+        const data = await response.json()
+        return data
+    } catch (error) {
+        console.log(error)
+        return false
+    }
+}
+
+export const deletePostOnServer = async (postId, token) => {
+    try {
+        const response = await fetch(`http://localhost:8080/delete-post/${postId}`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        const data = await response.json()
+        return data
     } catch (error) {
         console.log(error)
         return false
@@ -69,7 +98,7 @@ export const createUserOnServer = async (user) => {
             body: user
         })
         const data = await response.json()
-        console.log(data)
+        return data
     } catch (error) {
         console.log(error)
         return null
@@ -83,9 +112,32 @@ export const logUserOnServer = async (user) => {
             body: user
         })
         const data = await response.json()
-        localStorage.setItem('token', data.token)
-        localStorage.setItem('user', data.user.email)
-        console.log(data)
+        console.log('data dans loguser : ', data)
+        return data
+    } catch (error) {
+        console.log('error dans loguseronserver : ', error)
+        return false
+    }
+}
+
+export const forgetPassword = async (email) => {
+    try {
+        const response = await fetch(`http://localhost:8080/forget-password/${email}`)
+        const data = await response.json()
+        return data
+    } catch (error) {
+        console.log(error)
+        return false
+    }
+}
+
+export const resetPassword = async (formData) => {
+    try {
+        const response = await fetch('http://localhost:8080/reset-password', {
+            method: 'PATCH',
+            body: formData
+        })
+        const data = await response.json()
         return data
     } catch (error) {
         console.log(error)

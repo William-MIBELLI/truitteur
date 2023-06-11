@@ -1,8 +1,10 @@
-import { Container } from "./spinner.style";
+import { Container, Wrapper } from "./spinner.style";
 
 const Spinner = () => {
     return (
-        <Container/>
+        <Wrapper>
+            <Container/>
+        </Wrapper>
     )
 }
 

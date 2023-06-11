@@ -24,8 +24,8 @@ export const fetchUserAsync = (formData) => async (dispatch) => {
 
     try {
         const data = await logUserOnServer(formData)
-        if(!data){
-            throw new Error('failed to load user')
+        if(data.status !== 200){
+            throw new Error(data.message)
         }
         return dispatch(fetchUserSuccess(data))
     } catch (error) {

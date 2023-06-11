@@ -5,6 +5,7 @@ import { Link, Outlet } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserSelector } from '../../store/user/user.selector'
 import { logOutUser } from '../../store/user/user.action'
+import Footer from '../../component/footer/footer'
 
 const Navigation = () => {
 
@@ -36,6 +37,7 @@ const Navigation = () => {
             </Container>
             <Centered>
                 <Outlet/>
+                <Footer/>
             </Centered>
         </Fragment>
     )
