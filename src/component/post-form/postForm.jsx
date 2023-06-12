@@ -3,9 +3,8 @@ import { Container } from "./postForm.style";
 import Button from "../button/button";
 import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux'
-import { getPostSelector } from "../../store/post/post.selector";
-import { addPost } from "../../store/post/post.action";
-import { createNewPostOnServer, getSinglePostFromServer, updatePostOnServer } from "../../utils/server/server";
+import { getPostByIdSelector, getPostSelector } from "../../store/post/post.selector";
+import { addPostAsync, updatePostAsync } from "../../store/post/post.action";
 import { getUserSelector, getUserTokenSelector } from "../../store/user/user.selector";
 import SimpleReactValidator from "simple-react-validator";
 import Form from "../form/form";
@@ -19,17 +18,21 @@ const defaultValue = {
     message: '',
 }
 
-const PostForm = ({ editing = false, postId = undefined}) => {
+const PostForm = ({ editing = false, postId = ''}) => {
 
     const [ post, setPost ] = useState(defaultValue)
+    const existingPost = useSelector(getPostByIdSelector(postId))
+    
     const [ picture, setPicture ] = useState(undefined)
     const [ up, forceUpdate ] = useState(0)
-    const [ Loading, setLoading ] = useState(false)
-    const [ error, setError ] = useState(undefined)
+    const state = useSelector(getPostSelector)
     const token = useSelector(getUserTokenSelector)
     const user = useSelector(getUserSelector)
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const validator = useRef(new SimpleReactValidator())
+
+
     const onChangeHandler = event => {
         const { name, value } = event.target
         setPost({...post, [name]: value})
@@ -44,17 +47,9 @@ const PostForm = ({ editing = false, postId = undefined}) => {
     const onSubmitHandler = async (event) => {
         event.preventDefault()
         if(validator.current.allValid()){
-            setLoading(true)
             const formData = new FormData(event.target)
-            console.log('image: ', formData.get('image'))
-            const data = !editing ? await createNewPostOnServer(formData, token) : await updatePostOnServer(formData, token)
-            console.log(data.status)
-            if(data.status === 201){
-                navigate('/posts')
-            }else {
-                setLoading(false)
-                setError(data.message)
-            }
+            editing ? dispatch(updatePostAsync(state, token, formData)) : dispatch(addPostAsync(token, formData, state))
+            navigate('/posts')
         } else {
             validator.current.showMessages()
             forceUpdate(up + 1)
@@ -72,20 +67,16 @@ const PostForm = ({ editing = false, postId = undefined}) => {
     }
 
     useEffect(() => {
-        const getData = async () => {
-            const data = await getSinglePostFromServer(postId, token)
-            setPost(data.post)
-            console.log(data)
+        if(existingPost){
+            console.log('on recup le post avec lid : ', existingPost)
+            setPost(existingPost)
         }
-        if(editing){
-            console.log('useeffect de edit')
-            getData()
-        }
-    },[])
+    },[existingPost])
+
 
     return (
         <Container>
-            <Form onSubmit={onSubmitHandler} error={error}>
+            <Form onSubmit={onSubmitHandler} error={state.error}>
                 <input type="hidden" name="author" defaultValue={user.user._id} />
                 <input type="hidden" name="_id" defaultValue={post._id} />
                 <Input name={'title'} label={'Titre'} value={post.title} blurHandler={onBlurHandler} changeHandler={onChangeHandler}/>
@@ -93,9 +84,9 @@ const PostForm = ({ editing = false, postId = undefined}) => {
                 <Input name={'message'} label={'Votre message'} value={post.message} blurHandler={onBlurHandler} changeHandler={onChangeHandler}/>
                 {validator.current.message('message', post.message, 'required|max:300')}
                 <Input type={'file'} name={'image'} label={'Ajouter une photo'}  changeHandler={onPichandler} />
-                {validator.current.message('image', picture, 'required' )}
+                { !editing ? validator.current.message('image', picture, 'required' ) : null}
                 {
-                    Loading ? ( <Spinner/> ) : (
+                    state.isLoading ? ( <Spinner/> ) : (
                         <ButtonContainer>
                             <Button text={'Post'} type={'submit'}/>
                         </ButtonContainer>

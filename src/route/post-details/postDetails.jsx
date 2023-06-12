@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { Container, Header, Body, Wrapper, Footer, ImgContainer } from "./postDetails.style";
 import { useState, useEffect } from "react";
-import { getSinglePostFromServer } from "../../utils/server/server";
+import { getSinglePostFromServer } from "../../utils/server/post.server";
 import Spinner from "../../component/spinner/spinner";
 import { useSelector } from "react-redux";
 import { getUserTokenSelector } from "../../store/user/user.selector";
@@ -19,7 +19,6 @@ const PostDetails = () => {
 
     useEffect(() => {
         const getData = async () => {
-            console.log('psotdetails : ', postId, token)
             const data = await getSinglePostFromServer(postId, token)
             setPost(data.post)
         }

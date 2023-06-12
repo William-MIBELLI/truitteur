@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import Button from "../../component/button/button";
 import Input from "../../component/input/input";
 import { Container } from "./signIn.style";
-import { createUserOnServer } from "../../utils/server/server";
+import { createUserOnServer } from "../../utils/server/auth.server";
 import Title from "../../component/title/title";
 import Form from "../../component/form/form";
 import SimpleReactValidator from "simple-react-validator";
@@ -70,25 +70,29 @@ const SignIn = () => {
     return (
         <Container>
             <Title text={'Create your account'}/>
-            <Form onSubmit={onSubmitHandler}>
-                <Input label={'Name'} name={'name'} placeHolder={namePlaceHolder} value={user.name} blurHandler={onBlurHandler} changeHandler={onChangeHandler}/>
-                {validator.current.message('name', user.name, `required|alpha_num|min:${NAME_MIN_LENGTH}|max:${NAME_MAX_LENGTH}`)}
-                <Input label={'Email'} name={'email'} type={'email'} value={user.email} blurHandler={onBlurHandler} changeHandler={onChangeHandler}/>
-                {validator.current.message('email', user.email, 'required|email')}
-                <Input label={'Password'} name={'password'} placeHolder={passwordPlaceHolder} type={'password'} value={user.password} blurHandler={onBlurHandler} changeHandler={onChangeHandler}/>
-                {validator.current.message('password', user.password, `required|min:${PASSWORD_MIN_LENGTH}|max:${PASSWORD_MAX_LENGTH}`)}
-                <Input label={'Confirm'} name={'confirmPassword'} type={'password'} blurHandler={onBlurHandler} value={user.confirmPassword} changeHandler={onChangeHandler}/>
-                {validator.current.message('confirmPassword', user.confirmPassword, `required|in:${user.password}`)}
-                {
-                    !loading ? ( 
-                        <ButtonContainer>
-                            <Button text={'Sign in'} type="submit"/>
-                        </ButtonContainer>
-                        ) : (
-                        <Spinner/>
-                    )
-                }
-            </Form>
+            {
+                success ? ( <p>Account created successfully !</p> ) : (
+                    <Form onSubmit={onSubmitHandler}>
+                        <Input label={'Name'} name={'name'} placeHolder={namePlaceHolder} value={user.name} blurHandler={onBlurHandler} changeHandler={onChangeHandler}/>
+                        {validator.current.message('name', user.name, `required|alpha_num|min:${NAME_MIN_LENGTH}|max:${NAME_MAX_LENGTH}`)}
+                        <Input label={'Email'} name={'email'} type={'email'} value={user.email} blurHandler={onBlurHandler} changeHandler={onChangeHandler}/>
+                        {validator.current.message('email', user.email, 'required|email')}
+                        <Input label={'Password'} name={'password'} placeHolder={passwordPlaceHolder} type={'password'} value={user.password} blurHandler={onBlurHandler} changeHandler={onChangeHandler}/>
+                        {validator.current.message('password', user.password, `required|min:${PASSWORD_MIN_LENGTH}|max:${PASSWORD_MAX_LENGTH}`)}
+                        <Input label={'Confirm'} name={'confirmPassword'} type={'password'} blurHandler={onBlurHandler} value={user.confirmPassword} changeHandler={onChangeHandler}/>
+                        {validator.current.message('confirmPassword', user.confirmPassword, `required|in:${user.password}`)}
+                        {
+                            !loading ? ( 
+                                <ButtonContainer>
+                                    <Button text={'Sign in'} type="submit"/>
+                                </ButtonContainer>
+                                ) : (
+                                <Spinner/>
+                            )
+                        }
+                    </Form>
+                )
+            }
         </Container>
     )
 } 

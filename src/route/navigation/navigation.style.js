@@ -1,45 +1,68 @@
 import styled from 'styled-components'
 //    background: linear-gradient(45deg, ${props => props.theme.color.darkBlue}, ${props => props.theme.color.mediumPurple});
 
-export const Container = styled.div`
-    width: 100vw;
-    height: 80px;
-    background: linear-gradient(45deg, ${props => props.theme.color.darkBlue}, #00ADB5);
+export const Wrapper = styled.main`
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+
+`
+
+export const Brand = styled.img`
+    width: 40px;
+    height: 40px;
+    margin: 20px;
+    margin-right: auto;
+`
+
+export const Container = styled.nav`
+    position: sticky;
+    top: 0;
+    width: 30vw;
+    max-width: 200px;
+    height: 100vh;
+    ${'' /* background: linear-gradient(45deg, ${props => props.theme.color.darkBlue}, #00ADB5); */}
+    display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    border-right: 1px solid ${props => props.theme.color.lightBlue};
     align-items: center;
 
-    a{
-        text-decoration: none;
-        color: white;
-        margin: 0 20px;
-        cursor: pointer;
-
-        &:hover,
-        &:active{
-            color: #9DB2BF;
-        }
-    }
 `
 export const PostMenu = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-around;
-    align-items: center;
-    margin-left: 50px;
+    margin-top: 100px;
 `
 export const LogMenu = styled.div`
      display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    margin-right: 50px;
 `
 export const Centered = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
-    height: calc(100vh - 80px);
+    width: 600px;
+`
+
+export const SearchBar = styled.div`
+    width: 100%;
+    background-color: ${props => props.theme.color.lightBlue};
+    position: sticky;
+    top: 0;
+    color: #fafafa;
+    height: 80px;
+
+    h1{
+        font-family: 'Bagel Fat One', cursive;
+        font-size: 3rem;
+        margin: 8px;
+        text-align: right;
+    }
 `

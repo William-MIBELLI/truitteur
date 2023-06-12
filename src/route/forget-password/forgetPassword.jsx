@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import Input from "../../component/input/input";
 import { Container } from "./forgetPassword.style";
 import Button from "../../component/button/button";
-import { forgetPassword } from "../../utils/server/server";
+import { forgetPassword } from "../../utils/server/auth.server";
 import Title from "../../component/title/title";
 import Form from "../../component/form/form";
 import SimpleReactValidator from "simple-react-validator";

@@ -6,13 +6,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchUserAsync } from '../../store/user/user.action'
 import { getUserSelector } from '../../store/user/user.selector'
 import Spinner from '../../component/spinner/spinner'
-import { resetPassword } from '../../utils/server/server'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Title from '../../component/title/title'
 import Form from '../../component/form/form'
 import SimpleReactValidator from 'simple-react-validator'
 import { useRef } from 'react'
-import { useEffect } from 'react'
 import ButtonContainer from '../../component/button-container/buttonContainer'
 
 const defaultValue = {
@@ -84,6 +82,9 @@ const Login = () => {
                     </Form>
                 ) : ( <p>Connexion OK</p>)
             }
+            {
+                !user.user && (<Link as to={'/signin'}>Sign Up</Link>)
+            } 
         </Container>
     )
 }

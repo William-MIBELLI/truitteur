@@ -2,8 +2,9 @@ import styled from "styled-components";
 
 export const Container = styled.p`
     text-decoration: none;
-    color: white;
-    margin: 0 20px;
+    color: ${props => props.theme.color.darkBlue};
+    font-weight: bold;
+    margin: 20px;
     cursor: pointer;
 
     &:hover,

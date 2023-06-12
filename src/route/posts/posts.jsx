@@ -1,41 +1,44 @@
-import {} from './posts.style'
-import {  useEffect, useState } from 'react'
-import { getPostsFromServe } from '../../utils/server/server'
+import { Container, Header } from './posts.style'
+import {  useEffect } from 'react'
 import PostCard from '../../component/post-card/postCard'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getUserTokenSelector } from '../../store/user/user.selector'
+import { getPostSelector } from '../../store/post/post.selector'
+import { fetchPostsAsync } from '../../store/post/post.action'
+import Title from '../../component/title/title'
 
 const Posts = () => {
 
-    console.log('POSTS RENDER')
-    const [ posts, setPosts ] = useState([])
     const token = useSelector(getUserTokenSelector)
-
+    const post = useSelector(getPostSelector)
+    const dispatch = useDispatch()
+    console.log(post)
 
     useEffect(() => {
-        const getData = async () => {
-            const data = await getPostsFromServe(token)
-            console.log('data : ', data)
-            if(data){
-                setPosts(data)
-            }
+        if(!post.isFetched){
+            console.log('on dispatch , isflecthed : false')
+            dispatch(fetchPostsAsync(token))
         }
-        getData()
     },[])
 
-
     return (
-        <div>
+        <Container>
             {
-                !posts.length ? (
-                    <p>Pas de posts à afficher 😢</p>
-                ) : posts.map(post => {
+                !post.posts.length ? (
+                    <Header>
+                        <Title text={'ZZzzZz...'}/>
+                        <p>Pas de posts à afficher 😢</p>
+                    </Header>
+                ) : post.posts.map(post => {
                     return (
-                        <PostCard post={post} key={post._id}/>
+                        <>
+                            <PostCard post={post} key={post._id}/>
+                            <hr></hr>
+                        </>
                     )
                 })
             }
-        </div>
+        </Container>
     )
 }
 

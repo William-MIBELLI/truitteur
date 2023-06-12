@@ -8,17 +8,22 @@ import { Provider } from 'react-redux'
 import { store } from './store/store';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './utils/theme';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistore } from './store/store';
+import Spinner from './component/spinner/spinner';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          <App />
-        </ThemeProvider>
-      </BrowserRouter>
-    </Provider>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <PersistGate persistor={persistore} loading={<Spinner/>}>
+          <BrowserRouter>
+              <App />
+          </BrowserRouter>
+        </PersistGate>
+      </Provider>
+    </ThemeProvider>
   </React.StrictMode>
 );
 

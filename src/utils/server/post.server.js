@@ -9,8 +9,8 @@ export const getPostsFromServe = async (token) => {
         })
 
         const data = await response.json()
-
-        return data.posts
+        console.log('data dans getpostserver : ', data)
+        return data
     } catch (error) {
         console.log(error)
         return null
@@ -36,6 +36,7 @@ export const createNewPostOnServer = async (formData, token) => {
         return data
     } catch (error) {
         console.log(error)
+        return error
     }
 }
 
@@ -82,60 +83,6 @@ export const deletePostOnServer = async (postId, token) => {
             headers: {
                 Authorization: `Bearer ${token}`
             }
-        })
-        const data = await response.json()
-        return data
-    } catch (error) {
-        console.log(error)
-        return false
-    }
-}
-
-export const createUserOnServer = async (user) => {
-    try{
-        const response = await fetch('http://localhost:8080/create-user', {
-            method: 'PUT',
-            body: user
-        })
-        const data = await response.json()
-        return data
-    } catch (error) {
-        console.log(error)
-        return null
-    }
-}
-
-export const logUserOnServer = async (user) => {
-    try {
-        const response = await fetch('http://localhost:8080/login', {
-            method: 'POST',
-            body: user
-        })
-        const data = await response.json()
-        console.log('data dans loguser : ', data)
-        return data
-    } catch (error) {
-        console.log('error dans loguseronserver : ', error)
-        return false
-    }
-}
-
-export const forgetPassword = async (email) => {
-    try {
-        const response = await fetch(`http://localhost:8080/forget-password/${email}`)
-        const data = await response.json()
-        return data
-    } catch (error) {
-        console.log(error)
-        return false
-    }
-}
-
-export const resetPassword = async (formData) => {
-    try {
-        const response = await fetch('http://localhost:8080/reset-password', {
-            method: 'PATCH',
-            body: formData
         })
         const data = await response.json()
         return data

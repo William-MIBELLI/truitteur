@@ -3,7 +3,7 @@ import { Container } from "./resetPassword.style";
 import Input from "../../component/input/input";
 import Button from "../../component/button/button";
 import { useRef, useState } from "react";
-import { resetPassword } from "../../utils/server/server";
+import { resetPassword } from "../../utils/server/auth.server";
 import Title from "../../component/title/title";
 import Form from "../../component/form/form";
 import SimpleReactValidator from "simple-react-validator";

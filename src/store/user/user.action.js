@@ -1,6 +1,6 @@
 import { USER_ACTION_TYPE } from "./user.type";
 import { createAction } from "../../utils/helper";
-import { logUserOnServer } from "../../utils/server/server";
+import { logUserOnServer } from "../../utils/server/auth.server";
 
 export const fetchUserSuccess = (user) => {
     return createAction(USER_ACTION_TYPE.FETCH_USER_SUCCESS, user)
