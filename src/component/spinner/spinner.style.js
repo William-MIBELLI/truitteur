@@ -14,10 +14,10 @@ export const Container = styled.div`
     border-color: ${props => props.theme.color.lightBlue} transparent ${props => props.theme.color.lightBlue} ${props => props.theme.color.lightBlue};
     border-radius: 50%;
     animation: ${spin} 1.3s ease-in-out infinite;
+    
 `
 
 export const Wrapper = styled.div`
-    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;

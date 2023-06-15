@@ -6,6 +6,7 @@ export const Container = styled.p`
     font-weight: bold;
     margin: 20px;
     cursor: pointer;
+    color: ${props => props.theme.color.errorMessage};
 
     &:hover,
     &:active{

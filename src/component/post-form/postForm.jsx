@@ -49,7 +49,7 @@ const PostForm = ({ editing = false, postId = ''}) => {
         if(validator.current.allValid()){
             const formData = new FormData(event.target)
             editing ? dispatch(updatePostAsync(state, token, formData)) : dispatch(addPostAsync(token, formData, state))
-            navigate('/posts')
+            //navigate('/posts')
         } else {
             validator.current.showMessages()
             forceUpdate(up + 1)
@@ -67,11 +67,11 @@ const PostForm = ({ editing = false, postId = ''}) => {
     }
 
     useEffect(() => {
-        if(existingPost){
+        if(existingPost !== {}){
             console.log('on recup le post avec lid : ', existingPost)
             setPost(existingPost)
         }
-    },[existingPost])
+    },[])
 
 
     return (

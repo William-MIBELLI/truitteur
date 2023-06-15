@@ -40,7 +40,7 @@ const PostCard = ({ post }) => {
             <ButtonContainer>
                 <Button text={'View'} clickHandler={onClickDetails}/>
                 {
-                    post.author === user.user._id && ( 
+                    post.author._id === user.user._id && ( 
                         <>
                             <Button text={'Delete'} clickHandler={onDeleteHandler}/>
                             <Button text={'Update'} clickHandler={onUpdateHandler}/>

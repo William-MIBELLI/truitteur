@@ -4,6 +4,7 @@ export const Card = styled.div`
     ${'' /* border: 1px solid ${props => props.theme.color.darkBlue}; */}
     margin: 10px 0;
     border-radius: 5px;
+    background-color: ${props => props.theme.color.separator}
     ${'' /* box-shadow: 0px 0px 10px ${props => props.theme.color.darkBlue}; */}
 `
 export const CardHeader = styled.div`
@@ -35,6 +36,7 @@ export const CardBody = styled.div`
 
 export const ImgContainer = styled.img`
     width: 80%;
+    border-radius: 10px;
 `
 
 export const ButtonContainer = styled.div`

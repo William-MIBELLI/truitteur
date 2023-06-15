@@ -18,7 +18,7 @@ const Home = () => {
     return (
         <Container>
             <Title text={'Welcome on Truitteur'}/>
-            <p>What you want to do ?</p>
+            <p>Let's post some <strong>Truits</strong></p>
             <ButtonContainer>
             {
                 user.user ? (

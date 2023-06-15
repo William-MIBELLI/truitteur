@@ -29,6 +29,7 @@ export const createNewPostOnServer = async (formData, token) => {
 
         })
 
+        console.log('resposne dans createpost : ', response)
         if(response.status !== 201){
             throw new Error('Erreur pendant la création du post')
         }

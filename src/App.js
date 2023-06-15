@@ -9,16 +9,25 @@ import ErrorPage from './route/404/404';
 import PostDetails from './route/post-details/postDetails';
 import EditPost from './route/edit-post/editPost';
 import SignIn from './route/sign-in/signIn';
-import { useSelector } from 'react-redux';
-import { getUserSelector } from './store/user/user.selector';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserSelector, getUserTokenSelector } from './store/user/user.selector';
 import ProtectedRoute from './route/protected-route/protectedRoute';
 import ForgetPassword from './route/forget-password/forgetPassword';
 import ResetPassword from './route/reset-password/resetPassword';
+import { useEffect } from 'react';
+import { fetchPostsAsync } from './store/post/post.action';
+
 
 
 function App() {
 
   const user = useSelector(getUserSelector)
+  const token = useSelector(getUserTokenSelector)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fetchPostsAsync(token))
+  },[])
 
   return (
     <Routes>

@@ -9,6 +9,7 @@ export const theme = {
         formBackground : '#fafafa',
         title: '#00ADB5',
         lightBlue: '#00ADB5',
-        errorMessage : '#f84d4d'
+        errorMessage : '#f84d4d',
+        separator: '#eee'
     }
 }

@@ -5,7 +5,7 @@ import storage from 'redux-persist/lib/storage'
 import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 
-const middlewares = [logger, thunk]
+const middlewares = [ thunk]
 const composeEnhancer = compose(applyMiddleware(...middlewares))
 
 const persistConfig = {

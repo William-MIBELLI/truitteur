@@ -1,6 +1,7 @@
 import { createNewPostOnServer, deletePostOnServer, getPostsFromServe, updatePostOnServer } from "../../utils/server/post.server"
 import { POST_ACTION_TYPE } from "./post.type"
 import { createAction } from '../../utils/helper'
+import { addCommentOnPost } from "../../utils/server/comment.server"
 
 
 export const fetchPostsStart = state => {
@@ -109,5 +110,35 @@ export const deletePostAsync = (token, _id, state) => async (dispatch) => {
         dispatch(deletePostSuccess(state, _id))
     } catch (error) {
         dispatch(deletePostFailed(error.message))
+    }
+}
+
+export const addCommentStart = () => {
+    return createAction(POST_ACTION_TYPE.ADD_COMMENT_START)
+}
+
+export const addCommentSuccess = (state, comment) => {
+    const postToMap = state.find(post => post._id === comment.postId)
+    postToMap.comments.push(comment)
+    const newState = state.map(post => {
+        return post._id === comment.userId ? postToMap : post
+    })
+    return createAction(POST_ACTION_TYPE.ADD_COMMENT_SUCCESS, newState)
+}
+
+export const addCommentFailed = (error) => {
+    return createAction(POST_ACTION_TYPE.ADD_COMMENT_FAILED, error)
+}
+
+export const addCommentAsync = (formData, token, state) => async (dispatch) => {
+    dispatch(addCommentStart())
+    try {
+        const data = await addCommentOnPost(formData, token)
+        if(data.status !== 201 || typeof(data) === Error){
+            throw new Error(data.message)
+        }
+        dispatch(addCommentSuccess(state, data.comment))
+    } catch (error) {
+        dispatch(addCommentFailed(error))
     }
 }

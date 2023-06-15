@@ -4,7 +4,7 @@ const INITIAL_STATE = {
     error : null,
     isLoading : false,
     isFetched: false,
-    posts : ['je suis le contenu du state']
+    posts : []
 }
 
 export const postReducer = (state = INITIAL_STATE, action) => {
@@ -14,15 +14,15 @@ export const postReducer = (state = INITIAL_STATE, action) => {
         case POST_ACTION_TYPE.UPDATE_POST_START:
         case POST_ACTION_TYPE.DELETE_POST_START:
         case POST_ACTION_TYPE.POST_FETCH_START:
+        case POST_ACTION_TYPE.ADD_COMMENT_START:
             return {
                 ...state, isLoading: true
             }
         case POST_ACTION_TYPE.POST_FETCH_SUCCESS:
             return {
-                ...state,
                 posts: [...payload],
                 isLoading: false,
-                isFetched: true,
+                isFetched: false,
                 error: null
             }
         case POST_ACTION_TYPE.POST_FETCH_FAILED:
@@ -35,6 +35,7 @@ export const postReducer = (state = INITIAL_STATE, action) => {
         case POST_ACTION_TYPE.ADD_POST_SUCCESS:
         case POST_ACTION_TYPE.UPDATE_POST_SUCCESS:
         case POST_ACTION_TYPE.DELETE_POST_SUCCESS:
+        case POST_ACTION_TYPE.ADD_COMMENT_SUCCESS:
             return {
                 ...state,
                 posts : [...payload],
@@ -43,6 +44,7 @@ export const postReducer = (state = INITIAL_STATE, action) => {
         case POST_ACTION_TYPE.ADD_POST_FAILED:
         case POST_ACTION_TYPE.UPDATE_POST_FAILED:
         case POST_ACTION_TYPE.DELETE_POST_FAILED:
+        case POST_ACTION_TYPE.ADD_COMMENT_FAILED:
             return {
                 ...state,
                 isLoading: false,
