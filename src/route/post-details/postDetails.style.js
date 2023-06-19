@@ -7,6 +7,14 @@ export const Wrapper = styled.div`
 export const Container = styled.div`
     margin: 30px auto;
     text-align: center;
+
+    h3{
+        width: 100%;
+        background-color: ${props => props.theme.color.lightBlue};
+        color: ${props => props.theme.color.darkBlue};
+        text-align: center;
+        margin: 10px 0;
+    }
 `
 
 export const Header = styled.div`

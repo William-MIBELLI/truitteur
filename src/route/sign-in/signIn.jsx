@@ -33,13 +33,16 @@ const SignIn = () => {
     const namePlaceHolder = `Between ${NAME_MIN_LENGTH} and ${NAME_MAX_LENGTH} caracters`
     const passwordPlaceHolder = `Between ${PASSWORD_MIN_LENGTH} and ${PASSWORD_MAX_LENGTH} caracters`
     const [ up, forceUpdate] = useState(0)
+    const [ userpic, setUserpic ] = useState(undefined)
 
     const onSubmitHandler = async (event) => {
         event.preventDefault()
+        //console.log(event.target.userpicture.value)
         if(validator.current.allValid()){
             setLoading(true)
-            const formData = new FormData()
-            Object.keys(user).forEach(key => formData.append(key, user[key]))
+            const formData = new FormData(event.target)
+            // Object.keys(user).forEach(key => formData.append(key, user[key]))
+            // formData.append('userpicture', event.target.userpicture.value)
             const response = await createUserOnServer(formData)
             if(response.status === 201){
                 setSuccess(true)
@@ -64,7 +67,11 @@ const SignIn = () => {
             validator.current.hideMessageFor(name)
         }
         forceUpdate(up + 1)
-        
+    }
+
+    const onPichandler = event => {
+        setUserpic(event.target.files.length === 0 ? undefined : event.target.files[0].type  )
+        //console.log('onpichandler : ', userpic)
     }
 
     return (
@@ -81,6 +88,8 @@ const SignIn = () => {
                         {validator.current.message('password', user.password, `required|min:${PASSWORD_MIN_LENGTH}|max:${PASSWORD_MAX_LENGTH}`)}
                         <Input label={'Confirm'} name={'confirmPassword'} type={'password'} blurHandler={onBlurHandler} value={user.confirmPassword} changeHandler={onChangeHandler}/>
                         {validator.current.message('confirmPassword', user.confirmPassword, `required|in:${user.password}`)}
+                        <Input label={'Your best selfie'} type='file' name='userpicture' blurHandler={onBlurHandler} changeHandler={onPichandler}/>
+                        {validator.current.message('userpicture', userpic, 'required')}
                         {
                             !loading ? ( 
                                 <ButtonContainer>

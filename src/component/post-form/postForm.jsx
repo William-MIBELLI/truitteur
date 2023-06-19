@@ -41,7 +41,7 @@ const PostForm = ({ editing = false, postId = ''}) => {
 
     const onPichandler = event => {
         setPicture(event.target.files.length === 0 ? undefined : event.target.files[0].type  )
-        console.log(picture)
+        //console.log(picture)
     }
 
     const onSubmitHandler = async (event) => {
@@ -68,7 +68,7 @@ const PostForm = ({ editing = false, postId = ''}) => {
 
     useEffect(() => {
         if(existingPost !== {}){
-            console.log('on recup le post avec lid : ', existingPost)
+            //console.log('on recup le post avec lid : ', existingPost)
             setPost(existingPost)
         }
     },[])
@@ -83,8 +83,8 @@ const PostForm = ({ editing = false, postId = ''}) => {
                 {validator.current.message('title', post.title, 'required|alpha_num_space|min:3|max:30')}
                 <Input name={'message'} label={'Votre message'} value={post.message} blurHandler={onBlurHandler} changeHandler={onChangeHandler}/>
                 {validator.current.message('message', post.message, 'required|max:300')}
-                <Input type={'file'} name={'image'} label={'Ajouter une photo'}  changeHandler={onPichandler} />
-                { !editing ? validator.current.message('image', picture, 'required' ) : null}
+                <Input type={'file'} name={'postimage'} label={'Ajouter une photo'}  changeHandler={onPichandler} />
+                { !editing ? validator.current.message('postimage', picture, 'required' ) : null}
                 {
                     state.isLoading ? ( <Spinner/> ) : (
                         <ButtonContainer>

@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
-import { Container, SettingsMenu } from "./userMenu.style";
+import { Container, SettingsMenu, UserPic } from "./userMenu.style";
 import { getUserSelector } from "../../store/user/user.selector";
 import SignIn from "../../route/sign-in/signIn";
 import { Brand } from "../../route/navigation/navigation.style";
 
-const UserMenu = () => {
+const UserMenu = (  ) => {
 
     const user = useSelector(getUserSelector)
 
@@ -13,7 +13,7 @@ const UserMenu = () => {
         {
             user.user && (
                 <SettingsMenu>
-                    <Brand/>
+                    <UserPic src={`http://localhost:8080/${user.user.pictureUrl}`}/>
                     <a>Settings</a>
                     <a>Messages</a>
                     <a>Support</a>

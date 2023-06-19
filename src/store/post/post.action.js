@@ -1,7 +1,6 @@
 import { createNewPostOnServer, deletePostOnServer, getPostsFromServe, updatePostOnServer } from "../../utils/server/post.server"
 import { POST_ACTION_TYPE } from "./post.type"
 import { createAction } from '../../utils/helper'
-import { addCommentOnPost } from "../../utils/server/comment.server"
 
 
 export const fetchPostsStart = state => {
@@ -20,7 +19,7 @@ export const fetchPostsAsync = (token) => async (dispatch) => {
     dispatch(fetchPostsStart())
     try {
         const data = await getPostsFromServe(token)
-        console.log(data)
+        ////console.log(data)
         if(!data || data.status !== 200){
             throw new Error('Can\'t fetch Posts from server')
         }
@@ -61,7 +60,7 @@ export const updatePostStart = () => {
 }
 
 export const updatePostSuccess = (state, post) => {
-    console.log('post dans update : ', post)
+    //console.log('post dans update : ', post)
     const newPosts = state.posts.map(item => {
         return item._id === post._id ? post : item
     })
@@ -113,32 +112,25 @@ export const deletePostAsync = (token, _id, state) => async (dispatch) => {
     }
 }
 
-export const addCommentStart = () => {
-    return createAction(POST_ACTION_TYPE.ADD_COMMENT_START)
-}
-
-export const addCommentSuccess = (state, comment) => {
-    const postToMap = state.find(post => post._id === comment.postId)
-    postToMap.comments.push(comment)
+export const updateResponseCount = (state, postId) => {
+    console.log('on rentre dans updaterespopnsepost')
+    console.log(state)
     const newState = state.map(post => {
-        return post._id === comment.userId ? postToMap : post
+        return post._id === postId ? {...post, gotResponse : post.gotResponse + 1} : post
     })
-    return createAction(POST_ACTION_TYPE.ADD_COMMENT_SUCCESS, newState)
+    return createAction(POST_ACTION_TYPE.UPDATE_GOTRESPONSE, newState)
 }
 
-export const addCommentFailed = (error) => {
-    return createAction(POST_ACTION_TYPE.ADD_COMMENT_FAILED, error)
-}
-
-export const addCommentAsync = (formData, token, state) => async (dispatch) => {
-    dispatch(addCommentStart())
-    try {
-        const data = await addCommentOnPost(formData, token)
-        if(data.status !== 201 || typeof(data) === Error){
-            throw new Error(data.message)
-        }
-        dispatch(addCommentSuccess(state, data.comment))
-    } catch (error) {
-        dispatch(addCommentFailed(error))
+export const updateLikedPost = (state, postId, newValue, initialValue) => {
+    console.log(newValue, initialValue)
+    const postToUpdate = state.posts.find(p => p._id.toString() === postId.toString())
+    if(postToUpdate){
+        postToUpdate.like -= +initialValue
+        postToUpdate.like += +newValue
     }
+    const newPosts = state.posts.map(p => {
+        return p._id === postToUpdate._id ? postToUpdate : p
+    })
+
+    return createAction(POST_ACTION_TYPE.UPDATE_LIKEDPOST, newPosts)
 }

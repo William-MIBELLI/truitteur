@@ -12,11 +12,11 @@ const Posts = () => {
     const token = useSelector(getUserTokenSelector)
     const post = useSelector(getPostSelector)
     const dispatch = useDispatch()
-    console.log(post)
+    //console.log(post)
 
     useEffect(() => {
         if(!post.isFetched){
-            console.log('on dispatch , isflecthed : false')
+            //console.log('on dispatch , isflecthed : false')
             dispatch(fetchPostsAsync(token))
         }
     },[])

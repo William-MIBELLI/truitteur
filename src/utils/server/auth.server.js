@@ -8,7 +8,7 @@ export const createUserOnServer = async (user) => {
         const data = await response.json()
         return data
     } catch (error) {
-        console.log(error)
+        //console.log(error)
         return {message : `Error : ${error.message}`}
     }
 }
@@ -20,10 +20,10 @@ export const logUserOnServer = async (user) => {
             body: user
         })
         const data = await response.json()
-        console.log('data dans loguser : ', data)
+        //console.log('data dans loguser : ', data)
         return data
     } catch (error) {
-        console.log('error dans loguseronserver : ', error)
+        //console.log('error dans loguseronserver : ', error)
         return {message : `Error : ${error.message}`}
     }
 }
@@ -34,7 +34,7 @@ export const forgetPassword = async (email) => {
         const data = await response.json()
         return data
     } catch (error) {
-        console.log(error)
+        //console.log(error)
         return {message : `Error : ${error.message}`}
     }
 }
@@ -48,7 +48,7 @@ export const resetPassword = async (formData) => {
         const data = await response.json()
         return data
     } catch (error) {
-        console.log(error)
+        //console.log(error)
         return {message : `Error : ${error.message}`}
     }
 }

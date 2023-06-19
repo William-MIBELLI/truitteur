@@ -35,6 +35,17 @@ export const CommentInfo = styled.div`
 export const CommentFooter = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: right;
+    justify-content: space-between;
+    align-items: center;
     font-size: 0.7rem;
+
+    label {
+        display: none;
+    }
+    div{
+        font-size: 0.7rem;
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+    }
 `

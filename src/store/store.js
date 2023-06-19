@@ -5,13 +5,13 @@ import storage from 'redux-persist/lib/storage'
 import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 
-const middlewares = [ thunk]
+const middlewares = [logger, thunk]
 const composeEnhancer = compose(applyMiddleware(...middlewares))
 
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['post']
+    whitelist: ['user']
 
 }
 const persiReducer = persistReducer(persistConfig, rootReducer)

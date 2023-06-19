@@ -10,6 +10,7 @@ import { deletePostAsync } from "../../store/post/post.action";
 const PostCard = ({ post }) => {
 
     const { title, message, author, createdAt, _id, imageUrl } = post
+    //console.log(imageUrl)
     const navigate = useNavigate()
     const token = useSelector(getUserTokenSelector)
     const state = useSelector(getPostsSelector)
@@ -40,7 +41,7 @@ const PostCard = ({ post }) => {
             <ButtonContainer>
                 <Button text={'View'} clickHandler={onClickDetails}/>
                 {
-                    post.author._id === user.user._id && ( 
+                    author._id === user.user._id && ( 
                         <>
                             <Button text={'Delete'} clickHandler={onDeleteHandler}/>
                             <Button text={'Update'} clickHandler={onUpdateHandler}/>

@@ -14,7 +14,7 @@ export const postReducer = (state = INITIAL_STATE, action) => {
         case POST_ACTION_TYPE.UPDATE_POST_START:
         case POST_ACTION_TYPE.DELETE_POST_START:
         case POST_ACTION_TYPE.POST_FETCH_START:
-        case POST_ACTION_TYPE.ADD_COMMENT_START:
+        //case POST_ACTION_TYPE.ADD_COMMENT_START:
             return {
                 ...state, isLoading: true
             }
@@ -35,7 +35,7 @@ export const postReducer = (state = INITIAL_STATE, action) => {
         case POST_ACTION_TYPE.ADD_POST_SUCCESS:
         case POST_ACTION_TYPE.UPDATE_POST_SUCCESS:
         case POST_ACTION_TYPE.DELETE_POST_SUCCESS:
-        case POST_ACTION_TYPE.ADD_COMMENT_SUCCESS:
+        //case POST_ACTION_TYPE.ADD_COMMENT_SUCCESS:
             return {
                 ...state,
                 posts : [...payload],
@@ -44,11 +44,17 @@ export const postReducer = (state = INITIAL_STATE, action) => {
         case POST_ACTION_TYPE.ADD_POST_FAILED:
         case POST_ACTION_TYPE.UPDATE_POST_FAILED:
         case POST_ACTION_TYPE.DELETE_POST_FAILED:
-        case POST_ACTION_TYPE.ADD_COMMENT_FAILED:
+        //case POST_ACTION_TYPE.ADD_COMMENT_FAILED:
             return {
                 ...state,
                 isLoading: false,
                 error: payload
+            }
+        case POST_ACTION_TYPE.UPDATE_GOTRESPONSE:
+        case POST_ACTION_TYPE.UPDATE_LIKEDPOST:
+            return {
+                ...state,
+                posts: [...payload]
             }
         default:
             return state

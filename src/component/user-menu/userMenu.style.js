@@ -19,3 +19,12 @@ export const SettingsMenu = styled.div`
     margin-top: 100px;
 `
 
+export const UserPic = styled.img`
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 3px solid yellowgreen;
+    margin: 20px;
+    margin-right: auto;
+`
+

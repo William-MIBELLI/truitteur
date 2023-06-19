@@ -28,6 +28,10 @@ export const userReducer = (state = defaultState, action) => {
             return{
                 ...state, token: '', user: undefined
             }
+        case USER_ACTION_TYPE.UPDATE_USER_LIKEDPOST:
+            return {
+                ...state, user: {...state.user, likedPost: payload}
+            }
         default:
             return state
     }

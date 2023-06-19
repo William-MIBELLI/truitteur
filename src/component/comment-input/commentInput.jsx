@@ -7,16 +7,17 @@ import simpleReactValidator from  'simple-react-validator'
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserTokenSelector } from "../../store/user/user.selector";
-import { addCommentOnPost } from "../../utils/server/comment.server";
+import { getCommentsSelector } from "../../store/comment/comment.selector";
+import { addCommentAsync } from "../../store/comment/comment.action";
 import { getPostsSelector } from "../../store/post/post.selector";
-import { addCommentAsync } from "../../store/post/post.action";
 
-const CommentInput = ({ postId, onUpdate }) => {
+const CommentInput = ({ postId }) => {
 
     const [ comment, setComment ] = useState()
     const token = useSelector(getUserTokenSelector)
     const [ up, forceUpdate ] = useState(true)
-    const state = useSelector(getPostsSelector)
+    const commentState = useSelector(getCommentsSelector)
+    const postState = useSelector(getPostsSelector)
     const validator = useRef(new simpleReactValidator())
     const dispatch = useDispatch()
 
@@ -27,10 +28,11 @@ const CommentInput = ({ postId, onUpdate }) => {
             return forceUpdate(!up)       
         }
         const formData = new FormData()
-        formData.append('postId', postId)
+        formData.append('parentId', postId)
         formData.append('message', comment)
-        dispatch(addCommentAsync(formData, token, state))
-        onUpdate()
+        formData.append('fromPost', true)
+        formData.append('postRef', postId)
+        dispatch(addCommentAsync(commentState, token, formData, postState))
     }
 
     const onChangeHandler = (event) => {

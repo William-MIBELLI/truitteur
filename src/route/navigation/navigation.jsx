@@ -50,7 +50,7 @@ const Navigation = () => {
                 <Outlet/>
             </Centered>
             <SideContainer right={true}>
-                <UserMenu/>
+                <UserMenu />
             </SideContainer>
         </Wrapper>
     )

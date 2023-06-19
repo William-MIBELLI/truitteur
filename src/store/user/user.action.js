@@ -33,3 +33,18 @@ export const fetchUserAsync = (formData) => async (dispatch) => {
     }
 
 }
+
+export const updateUserLikedPostArray = (state, postId, newValue) => {
+    console.log(newValue, postId)
+    const findPost = state.user.likedPost.find(p => p.postId === postId)
+    if(findPost){
+        const newLikedPostArray = state.user.likedPost.map(post => {
+            return post.postId.toString() === postId.toString() ? {...post, value: newValue} : post
+        })
+        console.log('le post existe, on le met a jour ', newLikedPostArray)
+        return createAction(USER_ACTION_TYPE.UPDATE_USER_LIKEDPOST, newLikedPostArray)
+    }
+    const newArray = [...state.user.likedPost, {postId, value: newValue}]
+    console.log('le post existe pas , on le crée : ', newArray)
+    return createAction(USER_ACTION_TYPE.UPDATE_USER_LIKEDPOST, newArray)
+}
